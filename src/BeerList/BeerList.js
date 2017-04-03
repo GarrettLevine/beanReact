@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 import './BeerList.css';
 
@@ -17,6 +18,10 @@ class BeerList extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      isFetching: true,
+    });
+
     fetch('https://api.punkapi.com/v2/beers?per_page=24', {
       method: 'GET',
     })
@@ -26,6 +31,12 @@ class BeerList extends Component {
         beerList: data,
       });
     });
+
+    setTimeout(() => {
+      this.setState({
+        isFetching: false,
+      });
+    }, 350);
   }
 
   updateSearchValue(e) {
@@ -37,6 +48,9 @@ class BeerList extends Component {
   beerSearch(e) {
     e.preventDefault();
 
+    this.setState({
+      isFetching: true,
+    });
     fetch(`https://api.punkapi.com/v2/beers?per_page=24&beer_name=${this.state.searchValue}`, {
       method: 'GET',
     })
@@ -46,13 +60,18 @@ class BeerList extends Component {
         beerList: data,
       });
     });
+
+    setTimeout(() => {
+      this.setState({
+        isFetching: false,
+      });
+    }, 350);
   }
 
   renderBeers() {
     return this.state.beerList.map(beer => {
       const formatDescription = string => {
         if (string < 100) return string;
-
         return `${string.slice(0, 100)}...`;
       };
 
@@ -106,15 +125,23 @@ class BeerList extends Component {
             />
           </p>
           <p className="control">
-            <input
-              type="button"
-              className="button is-info is-medium"
-              value="Search"
-            />
+            <a
+              type="submit"
+              className={classNames('button is-info is-medium is-primary', {
+                'is-loading': this.state.isFetching,
+              })}
+              onClick={this.beerSearch}
+            >
+              Search
+            </a>
           </p>
         </form>
         <div className="beerList">
-          {this.renderBeers()}
+          { this.state.isFetching ?
+              null
+            :
+              this.renderBeers()
+          }
         </div>
       </div>
     );
