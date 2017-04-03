@@ -6,14 +6,38 @@ class BeerList extends Component {
   constructor(props) {
     super(props);
     this.renderBeers = this.renderBeers.bind(this);
+    this.updateSearchValue = this.updateSearchValue.bind(this);
+    this.beerSearch = this.beerSearch.bind(this);
 
     this.state = {
       beerList: [],
+      searchValue: '',
+      isFetching: false,
     };
   }
 
   componentDidMount() {
     fetch('https://api.punkapi.com/v2/beers?per_page=24', {
+      method: 'GET',
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        beerList: data,
+      });
+    });
+  }
+
+  updateSearchValue(e) {
+    this.setState({
+      searchValue: e.target.value
+    });
+  }
+
+  beerSearch(e) {
+    e.preventDefault();
+
+    fetch(`https://api.punkapi.com/v2/beers?per_page=24&beer_name=${this.state.searchValue}`, {
       method: 'GET',
     })
     .then(res => res.json())
@@ -61,7 +85,6 @@ class BeerList extends Component {
             </div>
           </article>
         </div>
-        
       );
     });
   }
@@ -69,18 +92,27 @@ class BeerList extends Component {
   render() {
     return (
       <div>
-        <div className="field has-addons has-addons-centered">
+        <form
+          onSubmit={this.beerSearch}
+          className="field has-addons has-addons-centered"
+        >
           <p className="beerSearch control">
             <input
               className="input is-medium"
               type="text"
               placeholder="Search for beer..."
+              value={this.state.searchValue}
+              onChange={this.updateSearchValue}
             />
           </p>
           <p className="control">
-            <a className="button is-info is-medium">Search</a>
+            <input
+              type="button"
+              className="button is-info is-medium"
+              value="Search"
+            />
           </p>
-        </div>
+        </form>
         <div className="beerList">
           {this.renderBeers()}
         </div>
