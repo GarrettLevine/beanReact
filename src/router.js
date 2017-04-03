@@ -13,8 +13,7 @@ const router = props => {
   return (
     <Router history={history}>
       <div>
-        <App history={history} />
-
+        <Route path="/" component={App} />
         <Route exact path="/" component={BeerList} />
         <Route exact path="/favourites" component={() => {
           return <h2>Favs</h2>;

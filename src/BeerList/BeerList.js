@@ -32,13 +32,11 @@ class BeerList extends Component {
       this.setState({
         beerList: data,
       });
-    });
-
-    setTimeout(() => {
       this.setState({
         isFetching: false,
       });
-    }, 350);
+    });
+
   }
 
   updateSearchValue(e) {
@@ -61,13 +59,13 @@ class BeerList extends Component {
       this.setState({
         beerList: data,
       });
+      setTimeout(() => {
+        this.setState({
+          isFetching: false,
+        });
+      }, 350);
     });
 
-    setTimeout(() => {
-      this.setState({
-        isFetching: false,
-      });
-    }, 350);
   }
 
   renderBeers() {

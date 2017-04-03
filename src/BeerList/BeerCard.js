@@ -26,7 +26,7 @@ function BeerCard(props) {
           </div>
           <nav className="level is-mobile">
             <div className="level-left">
-              <a className="level-item button is-primary">
+              <a className="level-item">
                 <span className="icon is-small">
                   <i className="fa fa-star-o" />
                 </span>
