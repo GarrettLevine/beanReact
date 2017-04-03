@@ -8,14 +8,17 @@ import './BeerList.css';
 class BeerList extends Component {
   constructor(props) {
     super(props);
+    this.addFavourite = this.addFavourite.bind(this);
+    this.removeFavourite = this.removeFavourite.bind(this);
+    this.beerSearch = this.beerSearch.bind(this);
     this.renderBeers = this.renderBeers.bind(this);
     this.updateSearchValue = this.updateSearchValue.bind(this);
-    this.beerSearch = this.beerSearch.bind(this);
 
     this.state = {
       beerList: [],
-      searchValue: '',
+      favourites: [],
       isFetching: false,
+      searchValue: '',
     };
   }
 
@@ -36,7 +39,25 @@ class BeerList extends Component {
         isFetching: false,
       });
     });
+  }
 
+  addFavourite(id) {
+    if (this.state.favourites.includes(id)) return;
+
+    const newArray = this.state.favourites.concat(id);
+
+    this.setState({
+      favourites: newArray,
+    });
+  }
+
+  removeFavourite(id) {
+    if (!this.state.favourites.includes(id)) return;
+
+    const newArray = this.state.favourites.filter(fav => fav !== id);
+    this.setState({
+      favourites: newArray,
+    });
   }
 
   updateSearchValue(e) {
@@ -73,7 +94,10 @@ class BeerList extends Component {
       return (
         <BeerCard
           key={beer.id}
+          addFavourite={this.addFavourite}
+          removeFavourite={this.removeFavourite}
           beer={beer}
+          isFavourited={this.state.favourites.includes(beer.id)}
         />
       );
     });
