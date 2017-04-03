@@ -3,17 +3,22 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
 
 import App from './App';
 import BeerList from './BeerList/BeerList';
 
-const router = () => {
+const history = createBrowserHistory();
+const router = props => {
   return (
-    <Router>
+    <Router history={history}>
       <div>
-        <App />
+        <App history={history} />
 
-        <Route path="/" component={BeerList} />
+        <Route exact path="/" component={BeerList} />
+        <Route exact path="/favourites" component={() => {
+          return <h2>Favs</h2>;
+        }} />
       </div>
     </Router>
   );

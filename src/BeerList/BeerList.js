@@ -83,14 +83,14 @@ class BeerList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="section">
         <SearchBar
           onSubmit={this.beerSearch}
           onChange={this.updateSearchValue}
           value={this.state.searchValue}
           isFetching={this.state.isFetching}
         />
-        <div className="beerList">
+        <div className="beerList container is-fluid">
           { this.state.isFetching ?
               null
             :

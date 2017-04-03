@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
+    console.log(this.props.history);
     return (
       <div className="column">
-        <h1 className="title is-1">Beans Love Beers</h1>
-        <p className="subtitle is-4">A small app to keep track of your beany beers.</p>
-        {this.props.children}
+        <nav className="nav">
+          <div className="nav-left nav-item">
+            <h1 className="title is-2">Beans Love Beers</h1>
+          </div>
+          <div className="nav-right nav-menu">
+            <Link
+              to="/"
+              className={classNames('nav-item', {
+                'is-active': this.props.history.location.pathname === '/',
+              })}
+            >
+              Home
+            </Link>
+            <Link
+              to="/favourites"
+              className={classNames('nav-item', {
+                'is-active': this.props.history.location.pathname === '/favourites',
+              })}
+            >
+              Favourites
+            </Link>
+          </div>
+        </nav>
       </div>
     );
   }
