@@ -41,10 +41,11 @@ class BeerList extends Component {
     });
   }
 
-  addFavourite(id) {
-    if (this.state.favourites.includes(id)) return;
+  addFavourite(asset) {
+    const favouriteIds = this.state.favourites.map(fav => fav.id);
+    if (favouriteIds.includes(asset.id)) return;
 
-    const newArray = this.state.favourites.concat(id);
+    const newArray = this.state.favourites.concat(asset);
 
     this.setState({
       favourites: newArray,
@@ -52,9 +53,10 @@ class BeerList extends Component {
   }
 
   removeFavourite(id) {
-    if (!this.state.favourites.includes(id)) return;
+    const favouriteIds = this.state.favourites.map(fav => fav.id);
+    if (!favouriteIds.includes(id)) return;
 
-    const newArray = this.state.favourites.filter(fav => fav !== id);
+    const newArray = this.state.favourites.filter(fav => fav.id !== id);
     this.setState({
       favourites: newArray,
     });
@@ -90,6 +92,11 @@ class BeerList extends Component {
   }
 
   renderBeers() {
+    const isFavourited = beerId => {
+      const favouriteIds = this.state.favourites.map(fav => fav.id);
+      return favouriteIds.includes(beerId);
+    };
+
     return this.state.beerList.map(beer => {
       return (
         <BeerCard
@@ -97,7 +104,7 @@ class BeerList extends Component {
           addFavourite={this.addFavourite}
           removeFavourite={this.removeFavourite}
           beer={beer}
-          isFavourited={this.state.favourites.includes(beer.id)}
+          isFavourited={isFavourited(beer.id)}
         />
       );
     });

@@ -7,13 +7,13 @@ function BeerCard(props) {
     return `${string.slice(0, 100)}...`;
   };
 
-  const handleFavourite = (id, added) => {
+  const handleFavourite = (beer, added) => {
     if (added) {
-      props.removeFavourite(id);
+      props.removeFavourite(beer.id);
       return;
     }
 
-    props.addFavourite(id);
+    props.addFavourite(beer);
   };
   
   return (
@@ -35,7 +35,7 @@ function BeerCard(props) {
           <nav className="level is-mobile">
             <div className="level-left">
               <a
-                onClick={() => { handleFavourite(props.beer.id, props.isFavourited); }}
+                onClick={() => { handleFavourite(props.beer, props.isFavourited); }}
                 className="level-item"
               >
                 <span className="icon is-small">
