@@ -18,6 +18,21 @@ function BeerCard(props) {
   
   return (
     <div className="beerCard box">
+      <nav className="level is-mobile">
+        <div className="level-right beerCard__favourite">
+          <a
+            className="level-item"
+            onClick={() => { handleFavourite(props.beer, props.isFavourited); }}
+          >
+            <span className="icon is-small">
+              <i className={classNames('fa', {
+                'fa-star-o': !props.isFavourited,
+                'fa-star': props.isFavourited,
+              })} />
+            </span>
+          </a>
+        </div>
+      </nav>
       <article className="media">
         <div className="media-left">
           <figure className="image is-96x96">
@@ -32,22 +47,6 @@ function BeerCard(props) {
               {formatDescription(props.beer.description)}
             </p>
           </div>
-          <nav className="level is-mobile">
-            <div className="level-left">
-              <a
-                onClick={() => { handleFavourite(props.beer, props.isFavourited); }}
-                className="level-item"
-              >
-                <span className="icon is-small">
-                  <i className={classNames('fa', {
-                    'fa-star-o': !props.isFavourited,
-                    'fa-star': props.isFavourited,
-                  })} />
-                </span>
-                <span className="is-small is-success">Favourite</span>
-              </a>
-            </div>
-          </nav>
         </div>
       </article>
     </div>

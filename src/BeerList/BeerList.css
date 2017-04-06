@@ -16,3 +16,11 @@
   max-width: 50%;
   max-height: 100%;
 }
+
+.beerCard__favourite {
+  margin-left: auto;
+}
+
+.beerCard .level {
+  margin-bottom: 8px;
+}
