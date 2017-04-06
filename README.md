@@ -12,7 +12,7 @@ A small little project using a beer API to with a searchable text field to make 
 * profit?
 
 ### Various tags to checkout
-* `git checkout tags/0.0-empyState`
+* `git checkout tags/0.0-starterState`
   * index.html set up
 * `git checkout tags/1.0-beerList`
   * creating the beerList component
