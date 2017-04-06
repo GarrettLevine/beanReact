@@ -7,6 +7,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 import App from './App';
 import BeerList from './BeerList/BeerList';
+import FavouriteList from './FavouriteList/FavouriteList';
 
 const history = createBrowserHistory();
 const router = props => {
@@ -15,9 +16,7 @@ const router = props => {
       <div>
         <Route path="/" component={App} />
         <Route exact path="/" component={BeerList} />
-        <Route exact path="/favourites" component={() => {
-          return <h2>Favs</h2>;
-        }} />
+        <Route exact path="/favourites" component={FavouriteList} />
       </div>
     </Router>
   );
