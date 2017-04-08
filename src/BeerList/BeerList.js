@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import BeerCard from './BeerCard';
 import SearchBar from './SearchBar';
+
+import * as beerActions from './actions';
 
 import './BeerList.css';
 
@@ -12,13 +16,11 @@ class BeerList extends Component {
     this.removeFavourite = this.removeFavourite.bind(this);
     this.beerSearch = this.beerSearch.bind(this);
     this.renderBeers = this.renderBeers.bind(this);
-    this.updateSearchValue = this.updateSearchValue.bind(this);
 
     this.state = {
       beerList: [],
       favourites: [],
       isFetching: false,
-      searchValue: '',
     };
   }
 
@@ -59,12 +61,6 @@ class BeerList extends Component {
     const newArray = this.state.favourites.filter(fav => fav.id !== id);
     this.setState({
       favourites: newArray,
-    });
-  }
-
-  updateSearchValue(e) {
-    this.setState({
-      searchValue: e.target.value
     });
   }
 
@@ -115,8 +111,8 @@ class BeerList extends Component {
       <div className="section">
         <SearchBar
           onSubmit={this.beerSearch}
-          onChange={this.updateSearchValue}
-          value={this.state.searchValue}
+          onChange={this.props.actions.updateSearch}
+          value={this.props.searchValue}
           isFetching={this.state.isFetching}
         />
         <div className="beerList container is-fluid">
@@ -131,4 +127,19 @@ class BeerList extends Component {
   }
 }
 
-export default BeerList;
+function mapStateToProps(state) {
+  return {
+    searchValue: state.beer.searchValue,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ ...beerActions }, dispatch),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(BeerList);

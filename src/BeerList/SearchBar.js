@@ -13,7 +13,7 @@ function SearchBar(props) {
           type="text"
           placeholder="Search for beer..."
           value={props.value}
-          onChange={props.onChange}
+          onChange={e => { props.onChange(e.target.value); }}
         />
       </p>
       <p className="control">
