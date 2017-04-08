@@ -129,7 +129,7 @@ class BeerList extends Component {
 
 function mapStateToProps(state) {
   return {
-    searchValue: state.beer.searchInput,
+    searchValue: state.beer.searchValue,
   };
 }
 
