@@ -14,33 +14,15 @@ class BeerList extends Component {
     super(props);
     this.addFavourite = this.addFavourite.bind(this);
     this.removeFavourite = this.removeFavourite.bind(this);
-    this.beerSearch = this.beerSearch.bind(this);
     this.renderBeers = this.renderBeers.bind(this);
 
     this.state = {
-      beerList: [],
       favourites: [],
-      isFetching: false,
     };
   }
 
   componentDidMount() {
-    this.setState({
-      isFetching: true,
-    });
-
-    fetch('https://api.punkapi.com/v2/beers?per_page=24', {
-      method: 'GET',
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.setState({
-        beerList: data,
-      });
-      this.setState({
-        isFetching: false,
-      });
-    });
+    this.props.actions.getBeers();
   }
 
   addFavourite(asset) {
@@ -64,36 +46,14 @@ class BeerList extends Component {
     });
   }
 
-  beerSearch(e) {
-    e.preventDefault();
-
-    this.setState({
-      isFetching: true,
-    });
-    fetch(`https://api.punkapi.com/v2/beers?per_page=24&beer_name=${this.state.searchValue}`, {
-      method: 'GET',
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.setState({
-        beerList: data,
-      });
-      setTimeout(() => {
-        this.setState({
-          isFetching: false,
-        });
-      }, 350);
-    });
-
-  }
-
   renderBeers() {
+    console.log(this.props);
     const isFavourited = beerId => {
       const favouriteIds = this.state.favourites.map(fav => fav.id);
       return favouriteIds.includes(beerId);
     };
 
-    return this.state.beerList.map(beer => {
+    return this.props.beerList.map(beer => {
       return (
         <BeerCard
           key={beer.id}
@@ -110,13 +70,15 @@ class BeerList extends Component {
     return (
       <div className="section">
         <SearchBar
-          onSubmit={this.beerSearch}
+          onSubmit={() => {
+            this.props.actions.getBeers(this.props.searchValue);
+          }}
           onChange={this.props.actions.updateSearch}
           value={this.props.searchValue}
-          isFetching={this.state.isFetching}
+          isFetching={this.props.isFetching}
         />
         <div className="beerList container is-fluid">
-          { this.state.isFetching ?
+          { this.props.isFetching ?
               null
             :
               this.renderBeers()
@@ -130,6 +92,8 @@ class BeerList extends Component {
 function mapStateToProps(state) {
   return {
     searchValue: state.beer.searchValue,
+    isFetching: state.beer.isFetching,
+    beerList: state.beer.beerList,
   };
 }
 
@@ -137,6 +101,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       updateSearch: beerActions.updateSearch,
+      getBeers: beerActions.getBeers,
     }, dispatch),
   }
 }
