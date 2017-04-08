@@ -2,9 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 
 function SearchBar(props) {
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.onSubmit();
+  };
+
   return (
     <form
-      onSubmit={props.onSubmit}
+      onSubmit={handleSubmit}
       className="field has-addons has-addons-centered"
     >
       <p className="beerSearch control">

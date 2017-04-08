@@ -12,44 +12,13 @@ import './BeerList.css';
 class BeerList extends Component {
   constructor(props) {
     super(props);
-    this.addFavourite = this.addFavourite.bind(this);
-    this.removeFavourite = this.removeFavourite.bind(this);
+
     this.renderBeers = this.renderBeers.bind(this);
-
-    this.state = {
-      favourites: [],
-    };
-  }
-
-  componentDidMount() {
-    this.props.actions.getBeers();
-  }
-
-  addFavourite(asset) {
-    const favouriteIds = this.state.favourites.map(fav => fav.id);
-    if (favouriteIds.includes(asset.id)) return;
-
-    const newArray = this.state.favourites.concat(asset);
-
-    this.setState({
-      favourites: newArray,
-    });
-  }
-
-  removeFavourite(id) {
-    const favouriteIds = this.state.favourites.map(fav => fav.id);
-    if (!favouriteIds.includes(id)) return;
-
-    const newArray = this.state.favourites.filter(fav => fav.id !== id);
-    this.setState({
-      favourites: newArray,
-    });
   }
 
   renderBeers() {
-    console.log(this.props);
     const isFavourited = beerId => {
-      const favouriteIds = this.state.favourites.map(fav => fav.id);
+      const favouriteIds = this.props.favouriteList.map(fav => fav.id);
       return favouriteIds.includes(beerId);
     };
 
@@ -57,8 +26,8 @@ class BeerList extends Component {
       return (
         <BeerCard
           key={beer.id}
-          addFavourite={this.addFavourite}
-          removeFavourite={this.removeFavourite}
+          addFavourite={this.props.actions.addFavourite}
+          removeFavourite={this.props.actions.removeFavourite}
           beer={beer}
           isFavourited={isFavourited(beer.id)}
         />
@@ -94,6 +63,7 @@ function mapStateToProps(state) {
     searchValue: state.beer.searchValue,
     isFetching: state.beer.isFetching,
     beerList: state.beer.beerList,
+    favouriteList: state.favourites.favouriteList,
   };
 }
 
@@ -102,8 +72,10 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       updateSearch: beerActions.updateSearch,
       getBeers: beerActions.getBeers,
+      addFavourite: beerActions.addFavourite,
+      removeFavourite: beerActions.removeFavourite,
     }, dispatch),
-  }
+  };
 }
 
 export default connect(

@@ -14,6 +14,12 @@ export default function beerListReducer(state = initialState, action) {
       });
     }
 
+    case types.FETCHING_BEERS: {
+      return Object.assign({}, state, {
+        isFetching: true,
+      });
+    }
+
     case types.FETCHED_BEERS: {
       return Object.assign({}, state, {
         isFetching: false,
@@ -27,7 +33,7 @@ export default function beerListReducer(state = initialState, action) {
     }
     
     default: {
-      return initialState;
+      return state;
     }
   }
 };
