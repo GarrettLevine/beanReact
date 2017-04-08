@@ -135,7 +135,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...beerActions }, dispatch),
+    actions: bindActionCreators({
+      updateSearch: beerActions.updateSearch,
+    }, dispatch),
   }
 }
 

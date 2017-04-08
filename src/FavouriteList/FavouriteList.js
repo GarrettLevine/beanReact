@@ -15,7 +15,7 @@ class FavouriteList extends Component {
 function mapStateToProps(state) {
  return {
    searchValue: state.beer.searchValue,
- }
+ };
 };
 
 export default connect(

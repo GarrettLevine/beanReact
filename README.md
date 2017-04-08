@@ -30,3 +30,6 @@ A small little project using a beer API to with a searchable text field to make 
   * build a nav with `isActive` using react router
 * `git checkout tags/1.7-favouriteFunctionality`
   * favouriting beers and showing them
+* `get checkouts tags/1.8-favouriteList`
+  * favourte List component
+
