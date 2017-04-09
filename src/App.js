@@ -15,10 +15,10 @@ class App extends Component {
 
   render(props) {
     return (
-      <div className="column">
+      <div className="hero is-primary topNav">
         <nav className="nav">
           <div className="nav-left nav-item">
-            <h1 className="title is-2">Beans Love Beers</h1>
+            <h1 className="title is-3">Beans Love Beers</h1>
           </div>
           <div className="nav-right nav-menu">
             <Link

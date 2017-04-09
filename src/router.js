@@ -8,6 +8,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import App from './App';
 import BeerList from './BeerList/BeerList';
 import FavouriteList from './FavouriteList/FavouriteList';
+import SingleBeer from './SingleBeer/SingleBeer';
 
 const history = createBrowserHistory();
 const router = props => {
@@ -15,8 +16,11 @@ const router = props => {
     <Router history={history}>
       <div>
         <Route path="/" component={App} />
-        <Route exact path="/" component={BeerList} />
-        <Route exact path="/favourites" component={FavouriteList} />
+        <main className="mainContainer">
+          <Route exact path="/" component={BeerList} />
+          <Route exact path="/favourites" component={FavouriteList} />
+          <Route exact path="/beer/:beerId" component={SingleBeer} />
+        </main>
       </div>
     </Router>
   );
