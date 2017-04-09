@@ -1,6 +1,6 @@
 # React/Redux Code Along
 
-A small little project using a beer API to with a searchable text field to make requests to the API
+A small little project using a beer API to with a searchable text field to make requests to the [punk beer API](https://punkapi.com/documentation/v2) with [Bulma css](http://bulma.io/) for styling.
 
 ### Install
 * clone this repo
