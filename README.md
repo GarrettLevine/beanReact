@@ -40,4 +40,5 @@ A small little project using a beer API to with a searchable text field to make 
   * search input and ajax actions moved to redux/thunk
 * `git checkout tags/2.3-favouriteRedux`
   * favourite actions moved to redux
-
+* `git checkout tags/2.4-loadMoreButton`
+  * load more button added
