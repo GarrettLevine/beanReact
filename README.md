@@ -42,3 +42,5 @@ A small little project using a beer API to with a searchable text field to make 
   * favourite actions moved to redux
 * `git checkout tags/2.4-loadMoreButton`
   * load more button added
+* `git checkout tags/2.5-signleBeer`
+  * singleBeer route
