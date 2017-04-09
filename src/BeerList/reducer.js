@@ -3,6 +3,7 @@ import * as types from './types';
 const initialState = {
   beerList: [],
   searchValue: '',
+  searchTerm: '',
   isFetching: true,
 };
 
@@ -11,6 +12,12 @@ export default function beerListReducer(state = initialState, action) {
     case types.UPDATE_SEARCH: {
       return Object.assign({}, state, {
         searchValue: action.payload.searchValue,
+      });
+    }
+
+    case types.SET_SEARCH_TERM: {
+      return Object.assign({}, state, {
+        searchTerm: action.payload.searchTerm,
       });
     }
 
@@ -29,6 +36,12 @@ export default function beerListReducer(state = initialState, action) {
     case types.SET_BEERS: {
       return Object.assign({}, state, {
         beerList: action.payload.beers,
+      });
+    }
+
+    case types.ADD_BEERS: {
+      return Object.assign({}, state, {
+        beerList: state.beerList.concat(action.payload.beers),
       });
     }
     

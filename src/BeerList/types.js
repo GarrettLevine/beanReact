@@ -1,4 +1,5 @@
 export const UPDATE_SEARCH = 'UPDATE_SEARCH';
+export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 
 export const ADD_FAVOURITE = 'ADD_FAVOURITE';
 export const REMOVE_FAVOURITE = 'REMOVE_FAVOURITE';
@@ -6,3 +7,4 @@ export const REMOVE_FAVOURITE = 'REMOVE_FAVOURITE';
 export const FETCHING_BEERS = 'FETCHING_BEERS';
 export const FETCHED_BEERS = 'FETCHED_BEERS';
 export const SET_BEERS = 'SET_BEERS';
+export const ADD_BEERS = 'ADD_BEERS';

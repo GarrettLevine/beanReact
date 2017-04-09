@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import BeerCard from './BeerCard';
 import SearchBar from './SearchBar';
+import LoadMore from './LoadMore';
 
 import * as beerActions from './actions';
 
@@ -47,12 +48,13 @@ class BeerList extends Component {
           isFetching={this.props.isFetching}
         />
         <div className="beerList container is-fluid">
-          { this.props.isFetching ?
+          { this.props.isFetching && !this.props.beerList.length ?
               null
             :
               this.renderBeers()
           }
         </div>
+        <LoadMore />
       </div>
     );
   }
